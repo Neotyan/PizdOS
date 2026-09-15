@@ -10,4 +10,5 @@ static inline unsigned char inb(unsigned short port) {
 	__asm__ __volatile__ ("inb %1, %0" : "=a"(ret) : "Nd"(port));
 	return ret;
 }
+
 #endif

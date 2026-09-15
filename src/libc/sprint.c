@@ -1,5 +1,12 @@
-void sprint(unsigned int num, char *buffer) {
+int sprint(unsigned int num, char *buffer) {
 	int index = 0;
+
+	if (num < 10) {
+		buffer[index++] = '0';
+		buffer[index++] = num + '0';
+		buffer[index] = '\0';
+		return 2;
+	}
 
 	do {
 		int tmp = num % 10;
@@ -19,4 +26,5 @@ void sprint(unsigned int num, char *buffer) {
 	}
 
 	 buffer[index] = '\0';
+	 return index;
 }

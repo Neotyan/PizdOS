@@ -19,6 +19,7 @@ C_SOURCES = \
 	src/kernel/idt.c \
 	src/kernel/pic.c \
 	src/kernel/pit.c \
+	src/kernel/rtc.c \
 	src/drivers/keyboard.c \
 	src/drivers/vga.c \
 	src/shell/shell.c \

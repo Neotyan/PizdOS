@@ -1,9 +1,11 @@
 #include "shell.h"
 #include "vga.h"
 #include "keyboard.h"
+#include "rtc.h"
+#include "libc.h"
 
-extern void sprint(unsigned int num, char *buffer);
 extern volatile unsigned int timer_ticks;
+extern volatile rtc_time_t os_time;
 
 static int str_equal(const char *a, const char *b) {
     while (*a != '\0' && *b != '\0') {
@@ -22,7 +24,7 @@ static int is_space(char c) {
     return c == ' ' || c == '\t';
 }
 
-static void shell_write(const char *text) {
+void shell_write(const char *text) {
     while (*text != '\0') {
         vga_putchar(*text);
         text++;
@@ -76,6 +78,7 @@ void shell_execute(char *line) {
         shell_write("    echo\n");
         shell_write("    clear\n");
         shell_write("    ticks\n");
+        shell_write("    time\n");
     } else if (str_equal(command, "echo")) {
         if (argument != 0) {
             shell_write(argument);
@@ -89,6 +92,9 @@ void shell_execute(char *line) {
         shell_write("ticks: ");
         shell_write(buffer);
         shell_write("\n"); 
+    } else if (str_equal(command, "time")) {
+        see_time();
+        vga_putchar('\n');
     }
 
     else {
